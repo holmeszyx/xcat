@@ -5,27 +5,29 @@ import (
 	"log"
 	"./xcat"
 	"fmt"
+	"flag"
 )
 
 func main(){
 	log.SetOutput(os.Stdout)
-	args := os.Args
-	argsLen := len(args)
-	if argsLen < 2{
+	var isWriteX bool
+	flag.BoolVar(&isWriteX, "x", false, "encode by x stream")
+	flag.Parse()
+	argCount := flag.NArg()
+
+	var filePath string
+	if argCount > 0{
+		filePath = flag.Arg(0)
+	}else{
 		log.Fatalln("file args no found. xcat file ")
 		os.Exit(1)
 	}
 
-	arg := args[1]
-	var filePath string
-	if argsLen >= 3 && arg == "-x"{
-		filePath = args[2]
+	if isWriteX{
 		writeX(filePath)
 	}else{
-		filePath = args[1]
 		readX(filePath)
 	}
-
 }
 
 // 读异或流
