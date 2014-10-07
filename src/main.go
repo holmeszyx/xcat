@@ -4,7 +4,6 @@ import (
 	"os"
 	"log"
 	"./xcat"
-	"fmt"
 	"flag"
 )
 
@@ -45,7 +44,8 @@ func readX(filePath string){
 			break;
 		}
 
-		fmt.Println(string(buff[:n]))
+		os.Stdout.Write(buff[:n])
+		//fmt.Print(string(buff[:n]))
 	}
 }
 
